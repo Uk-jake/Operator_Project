@@ -28,14 +28,44 @@ type CleanPolicySpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of CleanPolicy. Edit cleanpolicy_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// TTL for finished Jobs (in hours).
+	// +kubebuilder:validation:Minimum=1
+	TTLHours int32 `json:"ttlHours"`
+
+	// Schedule for cleanup in duration format (e.g. "1h", "30m").
+	// This will be parsed with time.ParseDuration.
+	// +kubebuilder:validation:Pattern=`^[0-9]+(s|m|h)$`
+	Schedule string `json:"schedule"`
+
+	// TargetNamespaces is an optional list of namespaces to scan.
+	// If empty or omitted, the operator will only scan the namespace
+	// where this CleanPolicy resource exists.
+	// +optional
+	TargetNamespaces []string `json:"targetNamespaces,omitempty"`
+
+	// JobSelector filters which Jobs are candidates for cleanup.
+	// Only Jobs matching this selector will be considered.
+	// If nil or empty, all Jobs in the target namespaces are candidates.
+	// +optional
+	JobSelector *metav1.LabelSelector `json:"jobSelector,omitempty"`
 }
 
 // CleanPolicyStatus defines the observed state of CleanPolicy.
 type CleanPolicyStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+
+	// LastCleanupTime is the last time the cleanup ran.
+	// +optional
+	LastCleanupTime *metav1.Time `json:"lastCleanupTime,omitempty"`
+
+	// Total number of Jobs cleaned by this policy.
+	// +optional
+	TotalCleanedJobs int64 `json:"totalCleanedJobs,omitempty"`
+
+	// Number of Jobs deleted in the last run.
+	// +optional
+	LastRunDeleted int32 `json:"lastRunDeleted,omitempty"`
 }
 
 // +kubebuilder:object:root=true
