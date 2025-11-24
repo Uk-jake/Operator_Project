@@ -1,0 +1,4 @@
+## Append samples of your project ##
+resources:
+- cleaner_v1alpha1_cleanpolicy.yaml
+# +kubebuilder:scaffold:manifestskustomizesamples
