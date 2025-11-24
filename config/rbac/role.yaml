@@ -1,11 +1,32 @@
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  labels:
-    app.kubernetes.io/name: project
-    app.kubernetes.io/managed-by: kustomize
   name: manager-role
 rules:
-- apiGroups: [""]
-  resources: ["pods"]
-  verbs: ["get", "list", "watch"]
+- apiGroups:
+  - cleaner.cloudclub.dev
+  resources:
+  - cleanpolicies
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - cleaner.cloudclub.dev
+  resources:
+  - cleanpolicies/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - cleaner.cloudclub.dev
+  resources:
+  - cleanpolicies/status
+  verbs:
+  - get
+  - patch
+  - update

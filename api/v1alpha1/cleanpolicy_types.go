@@ -68,8 +68,12 @@ type CleanPolicyStatus struct {
 	LastRunDeleted int32 `json:"lastRunDeleted,omitempty"`
 }
 
-// +kubebuilder:object:root=true
-// +kubebuilder:subresource:status
+//+kubebuilder:object:root=true
+//+kubebuilder:resource:scope=Namespaced
+//+kubebuilder:subresource:status
+//+kubebuilder:printcolumn:name="TTL(H)",type="integer",JSONPath=".spec.ttlHours"
+//+kubebuilder:printcolumn:name="SCHEDULE",type="string",JSONPath=".spec.schedule"
+//+kubebuilder:printcolumn:name="LAST_RUN",type="date",JSONPath=".status.lastCleanupTime"
 
 // CleanPolicy is the Schema for the cleanpolicies API.
 type CleanPolicy struct {
