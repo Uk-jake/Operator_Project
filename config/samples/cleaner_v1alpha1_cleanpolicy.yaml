@@ -1,9 +1,13 @@
 apiVersion: cleaner.cloudclub.dev/v1alpha1
 kind: CleanPolicy
 metadata:
-  labels:
-    app.kubernetes.io/name: project
-    app.kubernetes.io/managed-by: kustomize
   name: cleanpolicy-sample
+  namespace: ukjang
 spec:
-  # TODO(user): Add fields here
+  ttlHours: 24
+  schedule: "1h"
+  targetNamespaces:
+    - ukjang
+  jobSelector:
+    matchLabels:
+      cleanup: "true"
