@@ -5,12 +5,19 @@ metadata:
   name: manager-role
 rules:
 - apiGroups:
+  - batch
+  resources:
+  - jobs
+  verbs:
+  - delete
+  - get
+  - list
+  - watch
+- apiGroups:
   - cleaner.cloudclub.dev
   resources:
   - cleanpolicies
   verbs:
-  - create
-  - delete
   - get
   - list
   - patch

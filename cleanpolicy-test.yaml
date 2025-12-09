@@ -1,0 +1,13 @@
+apiVersion: cleaner.cloudclub.dev/v1alpha1
+kind: CleanPolicy
+metadata:
+  name: cleanpolicy-sample
+  namespace: ukjang
+spec:
+  ttlHours: 0
+  schedule: "30s"
+  targetNamespaces:
+    - ukjang
+  jobSelector:
+    matchLabels:
+      cleanup: "true"

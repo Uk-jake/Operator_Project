@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: sample-keep-job
+  namespace: ukjang
+  labels:
+    cleanup: "false"
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: busybox
+          image: busybox
+          command: ["sh", "-c", "echo keep-me && sleep 2"]

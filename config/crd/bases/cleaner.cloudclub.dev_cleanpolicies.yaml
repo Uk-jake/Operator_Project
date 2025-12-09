@@ -115,11 +115,10 @@ spec:
               ttlHours:
                 description: TTL for finished Jobs (in hours).
                 format: int32
-                minimum: 1
+                minimum: 0
                 type: integer
             required:
             - schedule
-            - ttlHours
             type: object
           status:
             description: CleanPolicyStatus defines the observed state of CleanPolicy.

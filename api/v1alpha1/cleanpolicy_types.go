@@ -29,8 +29,8 @@ type CleanPolicySpec struct {
 	// Important: Run "make" to regenerate code after modifying this file
 
 	// TTL for finished Jobs (in hours).
-	// +kubebuilder:validation:Minimum=1
-	TTLHours int32 `json:"ttlHours"`
+	// +kubebuilder:validation:Minimum=0
+	TTLHours int32 `json:"ttlHours,omitempty"`
 
 	// Schedule for cleanup in duration format (e.g. "1h", "30m").
 	// This will be parsed with time.ParseDuration.
